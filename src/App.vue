@@ -29,7 +29,12 @@ const sumcounters = computed(() => {
     return counters.firstcounter + counters.secondcounter >= 10 ? true : false ;
   });
 
-
+  const pairodd = computed(() => {
+    if ((counters.firstcounter + counters.secondcounter) % 2 == 0) {
+      return true
+    }
+    return false 
+  });
 </script>
 
 <template>
@@ -46,6 +51,10 @@ const sumcounters = computed(() => {
       </div>
     </div>
 
+    <div class="plus">
+      <p>+</p>
+    </div>
+
     <div class="second-counter">
       <div class="count-number">
         <p>{{ counters.secondcounter }}</p>
@@ -59,14 +68,51 @@ const sumcounters = computed(() => {
 
   </div>
 
-  <div class="sum-counters-less" v-if="sumcounters">
-
+  <div v-if="sumcounters" class="sum-counters-less" >
+    <p>{{counters.firstcounter + counters.secondcounter }}</p>
+    <p>O resultado é maior que 10</p>
   </div>  
 
-  <div class="sum-counters-sum" v-else>
+  <div v-else class="sum-counters-sum" >
+    <p>{{counters.firstcounter - counters.secondcounter }}</p>
+    <p>O resultado é menor que 10</p>
+  </div>
 
+  <div class="pairodd">
+    <p>O numero é {{ pairodd ? 'par' : 'ímpar' }}</p>
+    <p>{{ pairodd ? 'true' : 'false' }}</p>
   </div>
 
 </template>
 
-<style scoped></style>
+<style scoped>
+
+*{
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+  .counters{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 100px;
+  }
+
+  .count-number{
+    display: flex;
+    justify-content: center;
+  }
+
+.sum-counters-less, .sum-counters-sum, .pairodd{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.sum-counters-less, p{
+  margin-top: 10px;
+}
+
+</style>
